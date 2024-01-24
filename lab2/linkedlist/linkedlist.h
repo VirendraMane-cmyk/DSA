@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+typedef struct node* NODE;
+
+struct node
+{
+    int ele;
+    NODE next;
+};
+
+typedef struct linked_list* LIST;
+
+struct linked_list
+{   
+    int count;
+    NODE head;
+};
+
+//Create new linked list and returns the pointer to that list
+LIST createNewList();
+
+//Creates a node and returns the pointer to that node
+NODE createNewNode(int value);
+
+//inserts a node after the given value of search ele
+void insertAfter(int searchEle, NODE n1, LIST l1);
+
+
+//Prints the contents of the list
+void printList(LIST l1);
+
+//Deletes the element at the given index if the index is correct
+void deleteAt(int index,LIST list);
+
+//Searches for an element and returns its zero indexed position
+void search(int val,LIST list);
+
+//Deletes the element at the first index
+void deleteFirst(LIST list);
+
+//Reverse the linked list
+void reverseList(LIST list);
+
+//Checks if the given linkedlist contain a cycle
+bool hasCycle(LIST list);
+
