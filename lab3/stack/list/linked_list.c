@@ -1,15 +1,16 @@
 #include "linked_list.h"
+#include "heap_usage.h"
 #include <stdlib.h>
 
 LIST createNewList(){
-    LIST mylist = (LIST)malloc(sizeof(linked_list));
+    LIST mylist = (LIST)myalloc(sizeof(linked_list));
     mylist->count = 0;
     mylist->head = NULL;
     return mylist;
 }
 
 NODE createNewNode(Element data){
-    NODE node = (NODE)malloc(sizeof(node));
+    NODE node = (NODE)myalloc(sizeof(node));
 
     node->data = data;
 
@@ -43,7 +44,7 @@ void removeFirstNode(LIST list){
 
         list->count--;
 
-        free(first);
+        myfree(first);
     }
 }
 
@@ -55,10 +56,10 @@ void destroyList(LIST list){
     while(curr != NULL){
         next = curr->next;
 
-        free(curr);
+        myfree(curr);
 
         curr = next;
     }
 
-    free(list);
+    myfree(list);
 }

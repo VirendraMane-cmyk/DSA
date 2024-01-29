@@ -1,19 +1,21 @@
 #include "stack.h"
 #include "linked_list.h"
+#include "heap_usage.h"
 #include <stdlib.h>
 
-//Stack will contain a pointer to the head of the linked list
+// Assuming your custom allocation function is named myalloc
+extern void* myalloc(size_t size);
 
+// Stack will contain a pointer to the head of the linked list
 struct Stack
 {
     LIST list;
-    //The top is used just to check empty stack
+    // The top is used just to check an empty stack
     int top;
 };
 
-
 Stack *newStack(){
-    Stack* stack = (Stack*)malloc(sizeof(Stack));
+    Stack* stack = (Stack*)myalloc(sizeof(Stack));
     if(stack != NULL){
         stack->list = createNewList();
         stack->top = -1;
@@ -22,7 +24,7 @@ Stack *newStack(){
 }
 
 bool push(Stack *stack, Element element){
-    NODE node = (NODE)malloc(sizeof(node));
+    NODE node = (NODE)myalloc(sizeof(node));
     if(node == NULL){
         return false;
     }
@@ -30,7 +32,7 @@ bool push(Stack *stack, Element element){
     node->data = element;
     node->next = NULL;
 
-    insertNodeIntoList(node,stack->list);
+    insertNodeIntoList(node, stack->list);
 
     stack->top++;
 
@@ -44,7 +46,7 @@ Element* top(Stack *stack){
     return &(stack->list->head->data);
 }
 
-bool pop(Stack * stack){
+bool pop(Stack *stack){
     if(stack->top == -1){
         return false;
     }
@@ -66,9 +68,7 @@ void freeStack(Stack* stack){
         destroyList(stack->list);
     }
 
-    free(stack);
+    myfree(stack);
 
     return;
 }
-
-

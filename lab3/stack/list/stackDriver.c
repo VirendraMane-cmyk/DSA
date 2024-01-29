@@ -1,8 +1,14 @@
 #include "stack.h"
 #include <stdio.h>
+#include <sys/time.h>
+
+struct timeval t1,t2;
+
+double time_taken;
 Element itoe (int i);
 int main()
 {
+    gettimeofday(&t1,NULL);
     Stack *s = newStack();
     printf("Entered the program\n");
     if(isEmpty(s))
@@ -29,6 +35,12 @@ int main()
     printf("Pop returned %s\n", pop(s)?"true":"false");
 
     freeStack(s);
+
+    gettimeofday(&t2,NULL);
+
+    time_taken = (t2.tv_sec - t1.tv_sec) * 1e6;
+    time_taken = (time_taken + (t2.tv_usec - t1.tv_usec)) * 1e-6;
+    printf("The tasks took %f seconds to execute\n", time_taken);
     return 0;
 }
 Element itoe (int i)
